@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    env_file:
+      - ./mysql/.env
+    restart: unless-stopped
+    ports:
+      - "6612:3306"
+    volumes:
+      - /tmp/app/mysqld:/var/run/mysqld
+      - ./mysql/db:/var/lib/mysql
+  django:
+    build:
+      context: .
+      dockerfile: ./django/Dockerfile
+      
