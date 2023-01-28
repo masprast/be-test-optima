@@ -1,7 +1,9 @@
 FROM mysql:latest
 
-RUN chown -R mysql:root /var/lib/mysql/
-ADD data.sql /etc/mysql/data.sql
-RUN cp /etc/mysql/data.sql /docker-entrypoint-initdb.d/
-
+# COPY data.sql /docker-entrypoint-initdb.d/
+# WORKDIR /db
+ADD ./data.sql /docker-entrypoint-initdb.d/
+ADD ./init_db.sh /docker-entrypoint-initdb.d/
+ARG restart=always
+# VOLUME [ "/db" ]
 EXPOSE 3306
