@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    container_name: mysql_db
+    build:
+      context: ./be/mysql
+      dockerfile: mysql.Dockerfile
+    env_file:
+      - ./be/mysql/.env
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+  app:
+    container_name: django_app
+    build:
+      context: ./be/django
+      dockerfile: django.Dockerfile    
+    ports:
+      - 8000:8000
+    # command: ["python", "manage.py","runserver","0.0.0.0:8000"]
+    # volumes:
+    #   - ./be/django/app:/app
+    depends_on:
+      - db
+
+volumes:
+  mysql:
+  # django:
