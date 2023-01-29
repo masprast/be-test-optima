@@ -1,13 +1,22 @@
-CREATE DATABASE IF NOT EXISTS 'mysqlDB';
-USE 'mysqlDB';
+CREATE DATABASE IF NOT EXISTS 'datadb';
+USE 'datadb';
 
-CREATE TABLE IF NOT EXISTS 'DaftarUser' (
+-- ALTER USER 'mu'@'localhost' IDENTIFIED WITH mysql_native_password 'mp';
+-- FLUSH PRIVILEGE;
+
+CREATE TABLE IF NOT EXISTS 'DataUser' (
     NIK char(16),
     full_name varchar(255),
     gender enum('male','female'),
-    blood_type enum(A,B,AB,O),
-    foto text()
-    constraint key_user primary key (NIK,full_name)
+    blood_type enum('A','B','AB','O'),
+    photo longtext(),
+    constraint pk_dataUser (NIK,full_name)
 );
 
-INSERT INTO DaftarUser VALUES ('0123456789101112','User Pertama','male',O,'');
+INSERT INTO 'DataUser' VALUES (
+    '0123456789101112',
+    'nama lengkap si A',
+    'male',
+    'AB',
+    ''
+);
